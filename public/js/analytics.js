@@ -1,6 +1,9 @@
 // Microsoft Clarity (usage analytics for the UX course). The standard Clarity snippet, kept in its own
 // file because the CSP blocks inline scripts. The CSP allows *.clarity.ms for scripts and data.
 (() => {
+  // Not on local addresses: development and the browser tests must not send sessions to Clarity
+  // (and Firefox rejects Clarity's cookies on 127.0.0.1, which the tests count as errors).
+  if (['localhost', '127.0.0.1', '[::1]'].includes(location.hostname)) return;
   const projectId = 'zb5jhevix7';
   /** @type {any} */
   const win = window;
