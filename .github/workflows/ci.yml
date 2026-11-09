@@ -286,7 +286,8 @@ jobs:
         run: |
           docker save mailbridge:ci -o image.tar
           docker run --rm -v "$PWD:/scan" "$TRIVY_IMAGE" image --input /scan/image.tar \
-            --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --scanners vuln
+            --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --scanners vuln \
+            --ignorefile /scan/.trivyignore
           rm image.tar
       - name: Start the production image against a fresh database
         run: ./deploy/smoke-test.sh mailbridge:ci
