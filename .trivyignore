@@ -1,0 +1,7 @@
+# Accepted, time-limited exceptions for the image scan (ci.yml). Each entry needs a reason and an expiry.
+# After the expiry date Trivy reports the CVE again and CI fails, so nothing stays ignored by accident.
+
+# apt 2.6.1 in the Debian 12 base image. Nothing in the running container calls apt (the app runs as
+# `node` and npm is removed too), and the fixed apt 2.6.2 is not on the Debian mirror yet, so
+# `apt-get upgrade` in the Dockerfile cannot install it. Delete this entry once the base image has it.
+CVE-2026-109518 exp:2026-11-23
